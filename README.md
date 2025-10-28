@@ -1,20 +1,56 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Servicio de Extracción de Footers HTML (serviciofooter)
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+Este microservicio en Python, construido con FastAPI, se encarga de extraer el contenido de la etiqueta `<footer>` de una URL externa. Además, corrige las rutas relativas de recursos (imágenes, CSS, JS) para que se visualicen correctamente y utiliza un caché en memoria para optimizar el rendimiento.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+## Funcionalidades
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+- Extrae el HTML de la etiqueta `<footer>` de una URL dada.
+- Convierte rutas relativas de recursos (CSS, JS, imágenes) a absolutas para una correcta visualización.
+- Implementa un caché en memoria con expiración de 1 hora para reducir peticiones repetidas y mejorar la velocidad de respuesta.
+- Incluye validación de seguridad para prevenir ataques SSRF.
+- Manejo centralizado de excepciones.
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+## Configuración y Ejecución
+
+Sigue estos pasos para configurar y ejecutar el servicio en tu entorno local.
+
+### 1. Navegar al Directorio del Servicio
+
+```bash
+cd /var/www/html/servicios/serviciofooter
+```
+
+### 2. Crear y Activar un Entorno Virtual
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### 3. Instalar Dependencias
+
+```bash
+python3 -m pip install -r requirements.txt
+```
+
+### 4. Ejecutar el Servicio
+
+```bash
+uvicorn app:app --reload
+```
+
+El servicio estará disponible en `http://127.0.0.1:8000`.
+
+## Uso del API
+
+**Ejemplo con `curl`:**
+
+```bash
+curl "http://127.0.0.1:8000/api/content?url=https://www.ejemplo.com"
+```
+
+La respuesta será el HTML de la etiqueta `<footer>` de la URL proporcionada.
+
+---
+
+**Nota de Seguridad**: La validación `validate_url_is_public(url)` está comentada para facilitar el desarrollo. **¡No la deshabilites en un entorno de producción!**
