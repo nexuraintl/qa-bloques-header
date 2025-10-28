@@ -1,2 +1,2 @@
 # qa-bloques-header
-Este es el repositorio espejo de qa_bloques_header del Azure 
+Este es el repositorio espejo de mod-bloques-header del Azure del proyecto NEXURA PLATFORM MICROSERVICIOS
